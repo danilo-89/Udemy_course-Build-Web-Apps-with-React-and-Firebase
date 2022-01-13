@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
 
-export const useFetch = (url, method="GET") => {
-  const [data, setData] = useState(null);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState(null);
-  const [options, setOptions] = useState(null);
+export const useFetch = (url, method = "GET") => {
+  const [data, setData] = useState(null)
+  const [isPending, setIsPending] = useState(false)
+  const [error, setError] = useState(null)
+  const [options, setOptions] = useState(null)
 
   const postData = (postData) => {
     setOptions({
@@ -14,7 +14,7 @@ export const useFetch = (url, method="GET") => {
       },
       body: JSON.stringify(postData)
     })
-  };
+  }
 
   useEffect(() => {
     const controller = new AbortController()
@@ -42,10 +42,11 @@ export const useFetch = (url, method="GET") => {
       }
     }
 
-    if(method === "GET") {
+    // invoke the function
+    if (method === "GET") {
       fetchData()
     }
-    if(method === "POST" && options) {
+    if (method === "POST" && options) {
       fetchData(options)
     }
 
@@ -53,7 +54,7 @@ export const useFetch = (url, method="GET") => {
       controller.abort()
     }
 
-  }, [url, options, method])
+  }, [url, method, options])
 
   return { data, isPending, error, postData }
 }
